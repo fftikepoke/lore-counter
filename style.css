@@ -1,0 +1,417 @@
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    -webkit-tap-highlight-color: transparent;
+}
+
+:root {
+    --navy: #1e3a6e;
+    --gold: #c9a441;
+    --white: #ffffff;
+}
+
+body {
+    background: var(--white);
+    font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
+    height: 100vh;
+    overflow: hidden;
+    color: var(--navy);
+}
+
+/* ── 画面切り替え ── */
+.screen {
+    display: none;
+    width: 100%;
+    height: 100vh;
+}
+.screen.active {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+}
+
+/* ── ① Top画面 ── */
+.top-content {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 48px;
+}
+.disclaimer {
+    font-size: 10px;
+    color: #aaa;
+    text-align: center;
+    line-height: 1.6;
+    max-width: 280px;
+}
+.logo {
+    width: 72vw;
+    max-width: 320px;
+}
+
+/* ── ボタン共通 ── */
+.btn-primary {
+    background: var(--navy);
+    color: var(--white);
+    border: none;
+    border-radius: 50px;
+    padding: 14px 52px;
+    font-size: 18px;
+    font-weight: bold;
+    cursor: pointer;
+    letter-spacing: 1px;
+}
+.btn-primary:active { opacity: 0.75; }
+
+.btn-secondary {
+    background: transparent;
+    color: var(--navy);
+    border: 2px solid var(--navy);
+    border-radius: 50px;
+    padding: 12px 36px;
+    font-size: 16px;
+    cursor: pointer;
+}
+.btn-secondary:active { opacity: 0.75; }
+
+/* ── ② プレイヤー設定画面 ── */
+.setup-content {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 20px;
+    width: 88%;
+    max-width: 400px;
+}
+.setup-content h2 {
+    font-size: 22px;
+    color: var(--navy);
+}
+
+.input-group {
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+    gap: 6px;
+}
+.input-group label {
+    font-size: 13px;
+    font-weight: bold;
+    color: var(--gold);
+}
+.input-group input {
+    border: 2px solid var(--navy);
+    border-radius: 8px;
+    padding: 10px 14px;
+    font-size: 16px;
+    color: var(--navy);
+    outline: none;
+    width: 100%;
+}
+.input-group input:focus {
+    border-color: var(--gold);
+}
+
+/* ダイス結果エリア */
+.dice-result {
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 16px;
+}
+.dice-result.hidden { display: none; }
+
+.dice-area {
+    display: flex;
+    gap: 48px;
+    justify-content: center;
+}
+.dice-player {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 8px;
+}
+.dice-player span {
+    font-size: 13px;
+    font-weight: bold;
+    color: var(--navy);
+}
+.dice {
+    width: 64px;
+    height: 64px;
+    border: 3px solid var(--navy);
+    border-radius: 12px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 30px;
+    font-weight: bold;
+    color: var(--navy);
+    background: var(--white);
+}
+.dice.winner {
+    border-color: var(--gold);
+    color: var(--gold);
+    background: #fffbf0;
+}
+.dice-message {
+    font-size: 16px;
+    font-weight: bold;
+    color: var(--navy);
+    text-align: center;
+}
+
+/* ── ③ 管理画面 ── */
+#screen-game {
+    justify-content: space-between;
+    padding: 0;
+}
+
+.game-header {
+    width: 100%;
+    background: var(--navy);
+    color: var(--gold);
+    text-align: center;
+    padding: 10px;
+    font-size: 18px;
+    font-weight: bold;
+    letter-spacing: 3px;
+}
+
+.game-area {
+    display: flex;
+    flex: 1;
+    width: 100%;
+    overflow: hidden;
+}
+
+.player-side {
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    gap: 14px;
+    padding: 16px 8px;
+}
+.player-side:first-child {
+    border-right: 1px solid #e0e0e0;
+}
+
+.player-order-badge {
+    font-size: 12px;
+    font-weight: bold;
+    padding: 4px 16px;
+    border-radius: 20px;
+}
+.first-badge {
+    background: var(--navy);
+    color: var(--white);
+}
+.second-badge {
+    background: var(--gold);
+    color: var(--white);
+}
+
+.player-name {
+    font-size: 16px;
+    font-weight: bold;
+    color: var(--navy);
+}
+
+.lore-value {
+    font-size: 72px;
+    font-weight: bold;
+    color: var(--navy);
+    line-height: 1;
+}
+
+.counter-buttons {
+    display: flex;
+    gap: 12px;
+}
+.btn-counter {
+    width: 56px;
+    height: 56px;
+    border-radius: 50%;
+    border: none;
+    font-size: 18px;
+    font-weight: bold;
+    cursor: pointer;
+}
+.btn-counter.plus {
+    background: var(--navy);
+    color: var(--white);
+}
+.btn-counter.minus {
+    background: var(--white);
+    color: var(--navy);
+    border: 2px solid var(--navy);
+}
+.btn-counter:active { opacity: 0.75; }
+
+.btn-turn {
+    background: var(--gold);
+    color: var(--white);
+    border: none;
+    border-radius: 20px;
+    padding: 9px 18px;
+    font-size: 13px;
+    font-weight: bold;
+    cursor: pointer;
+}
+.btn-turn:disabled {
+    background: #ccc;
+    cursor: not-allowed;
+}
+.btn-turn:not(:disabled):active { opacity: 0.75; }
+
+/* ブーストボタン（魔法使いアヒル） */
+.btn-boost {
+    background: transparent;
+    border: 2px dashed #ccc;
+    border-radius: 50%;
+    width: 56px;
+    height: 56px;
+    padding: 4px;
+    cursor: pointer;
+    transition: border-color 0.2s, box-shadow 0.2s;
+    filter: grayscale(100%);
+    opacity: 0.45;
+}
+.btn-boost img {
+    width: 100%;
+    height: 100%;
+    object-fit: contain;
+    border-radius: 50%;
+}
+.btn-boost.active {
+    border: 2px solid var(--gold);
+    box-shadow: 0 0 10px rgba(201, 164, 65, 0.6);
+    filter: grayscale(0%);
+    opacity: 1;
+}
+.btn-boost:active { transform: scale(0.92); }
+
+.game-footer {
+    width: 100%;
+    display: flex;
+    justify-content: center;
+    padding: 12px;
+    border-top: 1px solid #e0e0e0;
+}
+.btn-end {
+    background: transparent;
+    color: #aaa;
+    border: 1px solid #ccc;
+    border-radius: 20px;
+    padding: 8px 36px;
+    font-size: 14px;
+    cursor: pointer;
+}
+
+/* ── ④ 結果画面 ── */
+.result-content {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 20px;
+    width: 90%;
+    max-width: 500px;
+}
+.result-content h2 {
+    color: var(--navy);
+    font-size: 22px;
+}
+#log-text {
+    width: 100%;
+    height: 280px;
+    border: 2px solid var(--navy);
+    border-radius: 8px;
+    padding: 12px;
+    font-size: 14px;
+    color: var(--navy);
+    resize: none;
+    font-family: monospace;
+    line-height: 1.6;
+}
+.result-buttons {
+    display: flex;
+    flex-direction: column;
+    gap: 12px;
+    width: 100%;
+    align-items: center;
+}
+
+/* ── キラキラエフェクト ── */
+.sparkle-overlay {
+    position: fixed;
+    inset: 0;
+    background: rgba(10, 24, 55, 0.92);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    z-index: 999;
+    animation: overlayFadeIn 0.3s ease;
+}
+.sparkle-overlay.hidden {
+    display: none;
+}
+
+@keyframes overlayFadeIn {
+    from { opacity: 0; }
+    to   { opacity: 1; }
+}
+
+.sparkle-content {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 8px;
+    position: relative;
+}
+
+.sparkle-winner-name {
+    color: var(--gold);
+    font-size: 22px;
+    font-weight: bold;
+    letter-spacing: 2px;
+    animation: popIn 0.4s ease;
+}
+
+.sparkle-score {
+    color: var(--white);
+    font-size: 100px;
+    font-weight: bold;
+    line-height: 1;
+    animation: popIn 0.4s ease;
+    text-shadow: 0 0 30px var(--gold), 0 0 60px var(--gold);
+}
+
+@keyframes popIn {
+    0%   { transform: scale(0.5); opacity: 0; }
+    70%  { transform: scale(1.1); }
+    100% { transform: scale(1);   opacity: 1; }
+}
+
+/* キラキラ粒子 */
+.sparkle-particles {
+    position: absolute;
+    width: 0;
+    height: 0;
+}
+
+.particle {
+    position: absolute;
+    border-radius: 50%;
+    animation: flyOut var(--duration) ease-out forwards;
+}
+
+@keyframes flyOut {
+    0%   { transform: translate(0, 0) scale(1); opacity: 1; }
+    100% { transform: translate(var(--tx), var(--ty)) scale(0); opacity: 0; }
+}

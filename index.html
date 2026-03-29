@@ -1,0 +1,116 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no">
+    <title>Lore Counter</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+
+    <!-- ① Top画面 -->
+    <div id="screen-top" class="screen active">
+        <div class="top-content">
+            <img src="logo.png" alt="Lore Counter" class="logo">
+            <button class="btn-primary" onclick="showScreen('screen-setup')">開始</button>
+            <p class="disclaimer">This is an unofficial fan app.<br>Lorcana is a trademark of Disney / Ravensburger.<br>This app is not affiliated with or endorsed by the rights holders.</p>
+        </div>
+    </div>
+
+    <!-- ② プレイヤー設定画面 -->
+    <div id="screen-setup" class="screen">
+        <div class="setup-content">
+            <h2>プレイヤー設定</h2>
+            <div class="input-group">
+                <label>Player 1</label>
+                <input type="text" id="player1-name" placeholder="名前を入力" maxlength="10">
+            </div>
+            <div class="input-group">
+                <label>Player 2</label>
+                <input type="text" id="player2-name" placeholder="名前を入力" maxlength="10">
+            </div>
+            <button class="btn-primary" onclick="rollDice()">ダイスを振る</button>
+
+            <div id="dice-result" class="dice-result hidden">
+                <div class="dice-area">
+                    <div class="dice-player">
+                        <span id="p1-dice-name">Player 1</span>
+                        <div class="dice" id="dice1">?</div>
+                    </div>
+                    <div class="dice-player">
+                        <span id="p2-dice-name">Player 2</span>
+                        <div class="dice" id="dice2">?</div>
+                    </div>
+                </div>
+                <p id="dice-message" class="dice-message"></p>
+                <button class="btn-primary" id="start-btn" onclick="startGame()" style="display:none">ゲーム開始</button>
+            </div>
+        </div>
+    </div>
+
+    <!-- ③ 管理画面 -->
+    <div id="screen-game" class="screen">
+        <div class="game-header">
+            <span id="turn-label">ターン 1</span>
+        </div>
+        <div class="game-area">
+
+            <!-- 先攻プレイヤー -->
+            <div class="player-side">
+                <div class="player-order-badge first-badge">先攻</div>
+                <div class="player-name" id="first-player-name">-</div>
+                <div class="lore-value" id="first-lore">0</div>
+                <div class="counter-buttons">
+                    <button class="btn-counter minus" onclick="changeLore('first', -1)">−1</button>
+                    <button class="btn-counter plus" onclick="changeLore('first', 1)">＋1</button>
+                </div>
+                <button class="btn-boost" id="first-boost-btn" onclick="toggleBoost('first')">
+                    <img src="wizard-duck.png" alt="ブースト">
+                </button>
+                <button class="btn-turn" id="first-turn-btn" onclick="endTurn('first')">ターン終了</button>
+            </div>
+
+            <!-- 後攻プレイヤー -->
+            <div class="player-side">
+                <div class="player-order-badge second-badge">後攻</div>
+                <div class="player-name" id="second-player-name">-</div>
+                <div class="lore-value" id="second-lore">0</div>
+                <div class="counter-buttons">
+                    <button class="btn-counter minus" onclick="changeLore('second', -1)">−1</button>
+                    <button class="btn-counter plus" onclick="changeLore('second', 1)">＋1</button>
+                </div>
+                <button class="btn-boost" id="second-boost-btn" onclick="toggleBoost('second')">
+                    <img src="wizard-duck.png" alt="ブースト">
+                </button>
+                <button class="btn-turn" id="second-turn-btn" onclick="endTurn('second')">ターン終了</button>
+            </div>
+
+        </div>
+        <div class="game-footer">
+            <button class="btn-end" onclick="endGame()">終了</button>
+        </div>
+    </div>
+
+    <!-- ④ 結果・エクスポート画面 -->
+    <div id="screen-result" class="screen">
+        <div class="result-content">
+            <h2>対戦終了</h2>
+            <textarea id="log-text" readonly></textarea>
+            <div class="result-buttons">
+                <button class="btn-primary" onclick="exportLog()">テキストを保存</button>
+                <button class="btn-secondary" onclick="resetGame()">最初に戻る</button>
+            </div>
+        </div>
+    </div>
+
+    <!-- キラキラエフェクト用オーバーレイ -->
+    <div id="sparkle-overlay" class="sparkle-overlay hidden">
+        <div class="sparkle-content">
+            <div id="sparkle-winner-name" class="sparkle-winner-name"></div>
+            <div id="sparkle-particles" class="sparkle-particles"></div>
+        </div>
+    </div>
+
+    <script src="app.js"></script>
+</body>
+</html>
