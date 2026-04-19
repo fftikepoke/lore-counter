@@ -21,8 +21,8 @@ function showScreen(screenId) {
 
 // ── ダイスを振る ──
 function rollDice() {
-    const p1Name = document.getElementById('player1-name').value.trim() || 'Player 1';
-    const p2Name = document.getElementById('player2-name').value.trim() || 'Player 2';
+    const p1Name = document.getElementById('player1-name').value.trim() || '左側';
+    const p2Name = document.getElementById('player2-name').value.trim() || '右側';
 
     game.player1.name = p1Name;
     game.player2.name = p2Name;
